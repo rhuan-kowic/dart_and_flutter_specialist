@@ -21,7 +21,7 @@ void gerenciadorDeContatos() {
         adicionarContato(listaContatos);
         break;
       case 3:
-        editarContato();
+        editarContato(listaContatos);
         break;
       case 4:
         excluirContato();
@@ -71,10 +71,7 @@ void adicionarContato(List<Contato> listaContatos) {
     throw Exception("Telefone inválido.");
   }
 
-  telefone = telefone.replaceAll(
-    RegExp(r"[^\d]"),
-    "",
-  ); 
+  telefone = telefone.replaceAll(RegExp(r"[^\d]"), "");
 
   if (telefone.length < 10 || telefone.length > 11) {
     throw Exception("Telefone inválido. Deve conter 10 ou 11 dígitos.");
@@ -92,10 +89,68 @@ void adicionarContato(List<Contato> listaContatos) {
   print("Contato adicionado com sucesso!\n");
 }
 
-void editarContato() {
-  // TODO: implementar o editar contato em listaContatos
+void editarContato(List<Contato> contatos) {
+  print("Digite o nome do contato que vai alterar: ");
+  String? nome = stdin.readLineSync();
+
+  if (nome == null || nome.trim().isEmpty) {
+    print("Nome invalido");
+    return;
+  }
+
+  Contato? contatoEncontrado;
+  try {
+    contatoEncontrado = contatos.firstWhere(
+      (contato) =>
+          contato.nome.toLowerCase().contains(nome.toLowerCase().trim()),
+    );
+  } catch (e) {
+    contatoEncontrado = null;
+  }
+
+  if (contatoEncontrado == null) {
+    print("Contato nao encontrado");
+    return;
+  }
+
+  imprimirMenuEdicao();
+  print("Digite a opção selecionada:");
+  String? opcaoSelecionada = stdin.readLineSync();
+  int opcaoNumero = int.tryParse(opcaoSelecionada ?? "") ?? 0;
+
+  print("Digite o novo valor: ");
+  String? novoValor = stdin.readLineSync();
+
+  try {
+    switch (opcaoNumero) {
+      case 1:
+        contatoEncontrado.nome = novoValor!;
+        break;
+      case 2:
+        contatoEncontrado.telefone = novoValor!;
+        break;
+      case 3:
+        contatoEncontrado.email = novoValor!;
+      case 4:
+        break;
+      default:
+        print("Opção invalída. Tente novamente");
+    }
+  } catch (e) {
+    print("Erro ao editar contato: $e");
+  }
 }
 
 void excluirContato() {
   // TODO: implementar o excluir contato na listaContatos
+}
+
+void imprimirMenuEdicao() {
+  print("\nMenu");
+  print("-----------------------");
+  print("1 - Editar nome");
+  print("2 - Editar telefone");
+  print("3 - Editar email");
+  print("4 - Sair");
+  print("-----------------------");
 }
