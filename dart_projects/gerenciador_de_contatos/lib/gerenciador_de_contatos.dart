@@ -18,7 +18,7 @@ void gerenciadorDeContatos() {
         listarContatos(listaContatos);
         break;
       case 2:
-        adicionarContato();
+        adicionarContato(listaContatos);
         break;
       case 3:
         editarContato();
@@ -56,8 +56,40 @@ void listarContatos(List<Contato> contatos) {
   }
 }
 
-void adicionarContato() {
-  // TODO: implementar adicionar o contato na listaContatos
+void adicionarContato(List<Contato> listaContatos) {
+  stdout.write("Digite o nome do contato: ");
+  String? nome = stdin.readLineSync();
+
+  if (nome == null || nome.trim().length < 3) {
+    throw Exception("Nome inválido. Deve conter pelo menos 3 letras.");
+  }
+
+  stdout.write("Digite o telefone do contato: ");
+  String? telefone = stdin.readLineSync();
+
+  if (telefone == null) {
+    throw Exception("Telefone inválido.");
+  }
+
+  telefone = telefone.replaceAll(
+    RegExp(r"[^\d]"),
+    "",
+  ); 
+
+  if (telefone.length < 10 || telefone.length > 11) {
+    throw Exception("Telefone inválido. Deve conter 10 ou 11 dígitos.");
+  }
+
+  stdout.write("Digite o email do contato: ");
+  String? email = stdin.readLineSync();
+
+  if (email == null || !email.contains("@") || !email.contains(".com")) {
+    throw Exception("Email inválido.");
+  }
+
+  Contato novoContato = Contato(nome.trim(), telefone, email.trim());
+  listaContatos.add(novoContato);
+  print("Contato adicionado com sucesso!\n");
 }
 
 void editarContato() {
