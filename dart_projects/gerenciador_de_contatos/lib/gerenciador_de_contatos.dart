@@ -25,7 +25,7 @@ void gerenciadorDeContatos() {
         editarContato(listaContatos);
         break;
       case 4:
-        excluirContato();
+        excluirContato(listaContatos);
         break;
       case 5:
         continuarPrograma = false;
@@ -131,6 +131,30 @@ void editarContato(List<Contato> contatos) {
   }
 }
 
-void excluirContato() {
-  // TODO: implementar o excluir contato na listaContatos
+void excluirContato(List<Contato> contatos) {
+  print("Digite o nome do contato que vai excluir: ");
+  String? nome = stdin.readLineSync();
+
+  if (nome == null) {
+    print("Nome invalido.");
+    return;
+  }
+  Contato? contatoExcluido;
+  try {
+    contatoExcluido = contatos.firstWhere(
+      (contato) =>
+          contato.nome.toLowerCase().contains(nome.toLowerCase().trim()),
+    );
+  } catch (e) {
+    contatoExcluido = null;
+    print("Erro ao excluir o contato: $e");
+  }
+
+  if (contatoExcluido == null) {
+    print("Contato nao encontrado.");
+    return;
+  }
+
+  contatos.remove(contatoExcluido);
+  print("Contato excluido");
 }
