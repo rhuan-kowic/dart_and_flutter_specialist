@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:gerenciador_de_contatos/models/contato.dart';
+import 'package:gerenciador_de_contatos/utils/imprimir_menus.dart';
 
 void gerenciadorDeContatos() {
   print("Bem vindos ao Gerenciador de Contatos");
@@ -9,7 +10,7 @@ void gerenciadorDeContatos() {
   ];
   bool continuarPrograma = true;
   while (continuarPrograma) {
-    imprimirMenu();
+    ImprimirMenus.imprimirMenu();
     print("Digite a opção selecionada:");
     String? opcaoSelecionada = stdin.readLineSync();
     int opcaoNumero = int.tryParse(opcaoSelecionada ?? "") ?? 0;
@@ -33,17 +34,6 @@ void gerenciadorDeContatos() {
         print("Opção invalída. Tente novamente");
     }
   }
-}
-
-void imprimirMenu() {
-  print("\nMenu");
-  print("-----------------------");
-  print("1 - Listar Contatos");
-  print("2 - Adicionar Contato");
-  print("4 - Editar contato");
-  print("4 - Excluir contato");
-  print("5 - Sair");
-  print("-----------------------");
 }
 
 void listarContatos(List<Contato> contatos) {
@@ -113,7 +103,7 @@ void editarContato(List<Contato> contatos) {
     return;
   }
 
-  imprimirMenuEdicao();
+  ImprimirMenus.imprimirMenuEdicao();
   print("Digite a opção selecionada:");
   String? opcaoSelecionada = stdin.readLineSync();
   int opcaoNumero = int.tryParse(opcaoSelecionada ?? "") ?? 0;
@@ -143,14 +133,4 @@ void editarContato(List<Contato> contatos) {
 
 void excluirContato() {
   // TODO: implementar o excluir contato na listaContatos
-}
-
-void imprimirMenuEdicao() {
-  print("\nMenu");
-  print("-----------------------");
-  print("1 - Editar nome");
-  print("2 - Editar telefone");
-  print("3 - Editar email");
-  print("4 - Sair");
-  print("-----------------------");
 }
