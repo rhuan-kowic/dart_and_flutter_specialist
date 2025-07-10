@@ -1,7 +1,7 @@
 class CompromissoAgendado {
   String _nome;
   DateTime _dataHorario;
-  String _descricao = "";
+  String? _descricao = "";
 
   CompromissoAgendado({required nome, required dataHorario, descricao = ""})
     : _nome = nome,
@@ -17,7 +17,7 @@ class CompromissoAgendado {
   DateTime get dataHorario => _dataHorario;
   set dataHorario(DateTime dataHorario) => _dataHorario = dataHorario;
 
-  String get descricao => _descricao;
+  String get descricao => _descricao.toString();
   set descricao(String descricao) => _descricao = descricao;
 
   @override

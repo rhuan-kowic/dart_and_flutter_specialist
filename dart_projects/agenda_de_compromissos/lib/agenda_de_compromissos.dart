@@ -9,7 +9,7 @@ void agendaDeCompromissos() {
     CompromissoAgendado(
       nome: "Estudar Dart",
       dataHorario: DateTime(2025, 7, 10, 6, 30),
-      descricao: "Ver no Notion, qual meterial estudar",
+      descricao: "Ver no Notion, qual material estudar",
     ),
   ];
   adicionarCompromissoAgendado(listaDeCompromisso);
@@ -61,7 +61,7 @@ void adicionarCompromissoAgendado(
   CompromissoAgendado compromisso = CompromissoAgendado(
     nome: nomeDoCompromisso,
     dataHorario: dataFormatada,
-    descricao: descricao?.isEmpty == true ? "Sem descricao" : descricao,
+    descricao: descricao?.isEmpty == true ? null : descricao,
   );
 
   listaDeCompromisso.add(compromisso);
